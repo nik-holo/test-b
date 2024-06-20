@@ -1,5 +1,5 @@
 class LinksController < ApplicationController
-  before_action :set_link, only: [:show]
+  before_action :set_link, only: [:show, :redirect]
 
   # POST /links
   def create
@@ -16,6 +16,11 @@ class LinksController < ApplicationController
 
   # GET /links/:id
   def show
+    render json: { tracking_code: @link.code, store_url: @link.redirect_url, visit_count: stats_for_code }
+  end
+
+  # GET /linbks/:id/redirect/
+  def redirect
     # i've had an inspiration to overengineer something :)
     # for simplicity of local dev setup sirvice is disabled inside
     ::StatsService.save_hit(@code, request.user_agent + request.ip)
@@ -24,6 +29,10 @@ class LinksController < ApplicationController
   end
 
   private
+
+  def stats_for_code
+    ::StatsService.stats_for_code(@code)
+  end
 
   def set_link
     @code = params[:id]

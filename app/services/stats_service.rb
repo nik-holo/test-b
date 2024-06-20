@@ -5,14 +5,12 @@ class StatsService
   TOTAL_PREFIX = "TOTAL_"
 
   class << self
-    def stats_report(code)
-      {
-        "#{code}": stat_by_prefix("#{TOTAL_PREFIX}#{code}")
-      }
+    def stats_for_code(code)
+      count_by_prefix("#{TOTAL_PREFIX}#{code}")
     end
 
     def save_hit(code, user_data)
-      # update_counter("#{TOTAL_PREFIX}#{code}")
+      update_counter("#{TOTAL_PREFIX}#{code}")
     end
 
     def update_counter(counter)
@@ -20,7 +18,7 @@ class StatsService
       RedisConn.current.set(counter, current.to_i + 1)
     end
 
-    def stat_by_prefix(prefix)
+    def count_by_prefix(prefix)
       RedisConn.current.get(prefix).to_i
     end
   end
