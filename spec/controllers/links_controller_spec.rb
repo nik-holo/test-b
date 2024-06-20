@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe LinksController, type: :controller do
@@ -39,10 +41,10 @@ RSpec.describe LinksController, type: :controller do
     let!(:link) { ::FactoryBot.create(:link) }
 
     it 'increments the visit count and redirects to the store URL' do
-      expect {
+      expect do
         get :redirect, params: { id: link.code }
-      }.to change { ::StatsService.stats_for_code(link.code) }.by(1)
-      
+      end.to change { ::StatsService.stats_for_code(link.code) }.by(1)
+
       expect(response).to redirect_to(link.redirect_url)
     end
   end

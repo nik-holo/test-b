@@ -1,0 +1,20 @@
+Style/Documentation:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: true
+  Exclude:
+    - "spec/**/*"
+
+AllCops:
+  Exclude:
+    - ".*/**/*"
+    - "bin/**/*"
+    - "doc/**/*"
+    - "db/schema.rb"
+    - "db/migrate/*"
+    - "log/**/*"
+    - "public/**/*"
+    - "tmp/**/*"
+    - "vendor/**/*"
+    - "lib/datadog/**/*"

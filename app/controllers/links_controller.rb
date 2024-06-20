@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class LinksController < ApplicationController
-  before_action :set_link, only: [:show, :redirect]
+  before_action :set_link, only: %i[show redirect]
 
   # POST /links
   def create
@@ -37,7 +39,7 @@ class LinksController < ApplicationController
   def set_link
     @code = params[:id]
 
-    @link = Rails.cache.fetch(@code, expires_in: 1.hour) do  
+    @link = Rails.cache.fetch(@code, expires_in: 1.hour) do
       Link.find_by(code: @code)
     end
   end

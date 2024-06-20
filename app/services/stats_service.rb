@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 class StatsService
   include RedisConn
 
-  HIT_PREFIX = "HIT_"
-  TOTAL_PREFIX = "TOTAL_"
+  HIT_PREFIX = 'HIT_'
+  TOTAL_PREFIX = 'TOTAL_'
 
   class << self
     def stats_for_code(code)
       count_by_prefix("#{TOTAL_PREFIX}#{code}")
     end
 
-    def save_hit(code, user_data)
+    def save_hit(code, _user_data)
       update_counter("#{TOTAL_PREFIX}#{code}")
     end
 

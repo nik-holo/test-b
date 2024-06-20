@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # spec/factories/links.rb
 FactoryBot.define do
   factory :link do
