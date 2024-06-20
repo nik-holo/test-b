@@ -16,17 +16,20 @@ class LinksController < ApplicationController
 
   # GET /links/:id
   def show
-    @link.increment!(:counter)
+    # i've had an inspiration to overengineer something :)
+    # for simplicity of local dev setup sirvice is disabled inside
+    ::StatsService.save_hit(@code, request.user_agent + request.ip)
+
     redirect_to @link.redirect_url, allow_other_host: true
   end
 
   private
 
   def set_link
-    code = params[:id]
+    @code = params[:id]
 
-    @link = Rails.cache.fetch(code, expires_in: 1.hour) do  
-      Link.find_by(code:)
+    @link = Rails.cache.fetch(@code, expires_in: 1.hour) do  
+      Link.find_by(code: @code)
     end
   end
 
