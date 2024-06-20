@@ -23,7 +23,11 @@ class LinksController < ApplicationController
   private
 
   def set_link
-    @link = Link.find_by(code: params[:id])
+    code = params[:id]
+
+    @link = Rails.cache.fetch(code, expires_in: 1.hour) do  
+      Link.find_by(code:)
+    end
   end
 
   def link_params
