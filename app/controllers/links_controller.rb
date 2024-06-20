@@ -10,7 +10,7 @@ class LinksController < ApplicationController
     @link.counter = 0
 
     if @link.save
-      render json: { code: @link.code, redirect_url: @link.redirect_url }, status: :created
+      render json: { new_link: generate_link}, status: :created
     else
       render json: @link.errors, status: :unprocessable_entity
     end
@@ -34,6 +34,10 @@ class LinksController < ApplicationController
 
   def stats_for_code
     ::StatsService.stats_for_code(@code)
+  end
+
+  def generate_link
+    "http://localhost:3000/links/#{@link.code}/redirect"
   end
 
   def set_link

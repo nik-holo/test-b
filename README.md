@@ -1,24 +1,25 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Setup
+```shell
+brew services install redis
+brew services start redis
 
-Things you may want to cover:
+bundle install 
 
-* Ruby version
+rails s
+```
 
-* System dependencies
+Try specs to make sure we're all set
+```shell
+rspec
+```
 
-* Configuration
+Create link:
+```shell
+curl -X POST http://localhost:3000/links -H "Content-Type: application/json" -d '{"redirect_url": "http://google.com"}'
+```
+Recieve new link.
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Copy and paste it to browser url.
+Enjoy!

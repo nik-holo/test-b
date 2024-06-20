@@ -9,8 +9,7 @@ RSpec.describe LinksController, type: :controller do
         post :create, params: { link: { redirect_url: 'http://example.com/discount' } }
         expect(response).to have_http_status(:created)
         json_response = JSON.parse(response.body)
-        expect(json_response).to have_key('code')
-        expect(json_response['redirect_url']).to eq('http://example.com/discount')
+        expect(json_response['new_link']).to eq("http://localhost:3000/links/#{Link.last.code}/redirect")
       end
     end
 
